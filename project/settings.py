@@ -115,16 +115,12 @@ DATABASES = {
 }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',  # Your database name
-#         'USER': 'postgres',  # Your database username
-#         'PASSWORD': 'QeVPefttBKIkIVBnFbUrLHSOxcIJNGES',  # Your database password
-#         'HOST': 'db.railway.app',  # Public hostname
-#         'PORT': '5432',  # Default PostgreSQL port
-#     }
-# }
+import os
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
 
 
 
