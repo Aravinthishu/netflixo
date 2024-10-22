@@ -1,0 +1,58 @@
+{% load static %}
+<div class="carousel mt-20">
+    <!-- list item -->
+    <div class="list">
+        {% for item in hero_section %}
+        <div class="item">
+            <img src="{{item.movie.image.url}}">
+            <div class="content">
+                {% for quality in item.movie.quality.all %}
+                <div class="author"><span class="bg-red-600 p-2">{{ quality }}</span></div>
+                {% endfor %}
+                
+                {% if item.movie.title_logo %}
+                <div class="title text-white"><img class="" style="width:250px; margin:10px 0" src="{{ item.movie.title_logo.url }}"></div>
+                {% else %}
+                <div class="title text-white">{{item.movie.name}}</div>
+                {% endif %}
+                
+                <div class="des mt-3 text-lg">
+                    <!-- lorem 50 -->
+                   {{item.movie.description}}
+                   <div class="topic"><span class="mr-2">IMDB {{item.movie.imdb_rating}}</span><span class="mx-2">{{item.movie.duration}}<span class="mx-2">{{item.movie.year}}</span></div>
+                </div>
+                <div class="buttons">
+                    <a href="{% url 'watch-movie' item.movie.id %}"><button class="py-3 border px-5 bg-red-600">Watch</button></a>
+                    <button class="border">SUBSCRIBE</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- list thumnail -->
+    <div class="thumbnail">
+        {% for item in hero_section%}
+        <div class="item">
+            <img src="{{item.movie.image.url}}">
+            <div class="content">
+                <div class="title">
+                    Name Slider
+                </div>
+                <div class="description">
+                    Description
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- next prev -->
+
+    <div class="arrows">
+        <button id="prev"><</button>
+        <button id="next">></button>
+    </div>
+    <!-- time running -->
+    <div class="time"></div>
+</div>
+
+<script src="{% static 'js/hero_section.js' %}"></script>

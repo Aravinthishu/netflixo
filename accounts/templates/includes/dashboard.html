@@ -1,0 +1,59 @@
+<div id="homeContent" class="tab-content  hidden mt-8">
+    <h4 class="text-2xl font-bold text-white">Dashboard</h4>
+    <div class="flex flex-col md:flex-row  gap-5 justify-between mt-4">
+        <div class="w-full md:w-1/3 p-5 bg-black flex gap-3 ">
+            <div>
+            <i class="fas fa-clapperboard text-white bg-orange-500 p-4 rounded-full"></i>
+            </div>
+            <div class="">
+                <h6 class="text-md text-white font-medium">Total Movies Watching In this Month</h6>
+                <h4 class="font-extrabold text-lg text-red-600">{{watch_movie_items_count}}</h4>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/3 p-5 bg-black flex gap-3">
+            <div>
+            <i class="fas fa-heart text-white bg-red-500 p-4 rounded-full"></i>
+            </div>
+            <div class="">
+                <h6 class="text-md text-white font-medium">Favourites</h6>
+                <h4 class="font-extrabold text-lg text-red-600">{{wishlist_items_count}}</h4>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/3 p-5 bg-black flex gap-3 ">
+            <div>
+            <i class="fas fa-download text-white bg-blue-500 p-4 rounded-full"></i>
+            </div>
+            <div class="">
+                <h6 class="text-md text-white font-medium">Downloads</h6>
+                <h4 class="font-extrabold text-lg text-red-600">{{download_items_count}}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 flex gap-5">
+        <img class="h-14 w-14 rounded-full border border-gray-300" 
+        src="{{ profile.avatar }}" 
+        alt="Profile picture">
+        <div class="">
+        <span class="bg-yellow-100 text-xs font-medium text-yellow-600 p-1 rounded">Premium User</span>
+        <h6 class="text-lg font-medium mt-2 text-white">{{ profile.user.username }}</h6>
+        </div>
+    </div>
+    <div class="mt-2">
+        <h4 class="text-md text-white">Email Address</h4>
+        <p class="text-gray-400 text-sm mt-1">{{profile.user.email}}</p>
+    </div>
+
+    <div class="mt-2">
+        <h4 class="text-md text-white">Phone Number</h4>
+        <p class="text-gray-400 text-sm mt-1">{{profile.phone}}</p>
+    </div>
+
+    <div class="mt-2">
+        <h4 class="text-md text-white">Plan Expires on</h4>
+        <p class="text-gray-400 text-sm mt-1">{{subscription.end_date}}</p>
+    </div>
+
+</div>

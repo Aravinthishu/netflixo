@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mx-auto h-auto w-full mt-24 p-8 rounded bg-[#0B0F29]">
+    <div class="bg-black p-8 flex justify-between border rounded border-gray-700">
+        <div class="text-lg ">
+        <i class="fas mr-2 fa-arrow-right"></i>{{movie.name}}
+        </div>
+
+        <div class="">
+            <a href="{% url 'add_to_wishlist' movie.id %}"><i class="fas p-3 rounded bg-gray-500 mx-2 fa-heart"></i></a>
+            <a href="{% url 'download-movie' movie.id %}"><i class="fas p-3 rounded bg-gray-500 mx-2 fa-download"></i></a>
+        </div>
+    </div>
+    <div class="relative mt-8">
+        <img class="w-full" src="{{movie.image.url}}">
+        <button class="absolute inset-0 flex items-center justify-center  text-white text-4xl" id="play-button">
+            <a href="{% url  'movie-watching' movie.id %}"><i class="fas border border-red-600 p-4 bg-white text-red-600 text-base rounded-full fa-play"></i></a>
+        </button>
+    </div>
+
+</div>
+{% endblock %}
+

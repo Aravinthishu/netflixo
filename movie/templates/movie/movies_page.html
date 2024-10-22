@@ -1,0 +1,90 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="mt-40 lg:mt-32 container mx-auto p-8 md:p-0">
+<form method="get" action="{% url 'movies-page' %}" class="flex flex-wrap justify-start items-center space-y-4 sm:space-y-0 sm:space-x-4 bg-black p-6 rounded-lg">
+    <!-- Filter by Year -->
+    <div class="flex flex-col sm:flex-row sm:items-center text-white">
+        <label for="year_range" class="text-red-500 font-semibold mr-2">Filter by Year:</label>
+        <select name="year_range" id="year_range" class="bg-black border border-red-500 text-white rounded-lg px-4 py-2">
+            <option value="">Select Year Range</option>
+            <option value="2000-2005" {% if selected_year_range == '2000-2005' %}selected{% endif %}>2000-2005</option>
+            <option value="2006-2011" {% if selected_year_range == '2006-2011' %}selected{% endif %}>2006-2011</option>
+            <option value="2012-2018" {% if selected_year_range == '2012-2018' %}selected{% endif %}>2012-2018</option>
+            <option value="2019-2024" {% if selected_year_range == '2019-2024' %}selected{% endif %}>2019-2024</option>
+        </select>
+    </div>
+
+    <!-- Filter by Genre -->
+    <div class="flex flex-col sm:flex-row sm:items-center text-white">
+        <label for="genre" class="text-red-500 font-semibold mr-2">Filter by Genre:</label>
+        <select name="genre" id="genre" class="bg-black border border-red-500 text-white rounded-lg px-4 py-2">
+            <option value="">Select Genre</option>
+            {% for genre in genres %}
+            <option value="{{ genre.id }}" {% if selected_genre == genre.id|stringformat:"s" %}selected{% endif %}>
+                {{ genre.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Filter by Ratings -->
+    <div class="flex flex-col sm:flex-row sm:items-center text-white">
+        <label for="rating_range" class="text-red-500 font-semibold mr-2">Filter by Ratings:</label>
+        <select name="rating_range" id="rating_range" class="bg-black border border-red-500 text-white rounded-lg px-4 py-2">
+            <option value="">Select Rating Range</option>
+            <option value="1-4" {% if selected_rating_range == '1-5' %}selected{% endif %}>1 - 4</option>
+            <option value="4-6" {% if selected_rating_range == '5-8' %}selected{% endif %}>4 - 6</option>
+            <option value="6-8" {% if selected_rating_range == '5-8' %}selected{% endif %}>6 - 8</option>
+            <option value="8-10" {% if selected_rating_range == '8-10' %}selected{% endif %}>8 - 10</option>
+        </select>
+    </div>
+
+    <!-- Sorting Options -->
+    <div class="flex flex-col sm:flex-row sm:items-center text-white">
+        <label for="sort_by" class="text-red-500 font-semibold mr-2">Sort by:</label>
+        <select name="sort_by" id="sort_by" class="bg-black border border-red-500 text-white rounded-lg px-4 py-2">
+            <option value="">Select Sort Option</option>
+            <option value="title_asc" {% if selected_sort_by == 'title_asc' %}selected{% endif %}>Title (A-Z)</option>
+            <option value="title_desc" {% if selected_sort_by == 'title_desc' %}selected{% endif %}>Title (Z-A)</option>
+            <option value="year_asc" {% if selected_sort_by == 'year_asc' %}selected{% endif %}>Year (Ascending)</option>
+            <option value="year_desc" {% if selected_sort_by == 'year_desc' %}selected{% endif %}>Year (Descending)</option>
+            <option value="rating_asc" {% if selected_sort_by == 'rating_asc' %}selected{% endif %}>Rating (Low to High)</option>
+            <option value="rating_desc" {% if selected_sort_by == 'rating_desc' %}selected{% endif %}>Rating (High to Low)</option>
+        </select>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex flex-col sm:flex-row my-auto mx-auto sm:items-center">
+        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Apply Filters</button>
+    </div>
+</form>
+
+
+
+<h3 class="text-2xl font-bold text-red-600 my-5">All Movies</h3>
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+    {% for movie in movies %}
+    
+        <div class="flex flex-col max-h-full relative group border-gray-500 border p-1 rounded duration-500 hover:scale-95">
+            <a href="{% url "movie_view" movie.id %}"> <img class="h-auto max-w-full flex-grow" src="{{ movie.image.url }}" alt="{{ movie.name }}"></a>
+            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-lg p-2 rounded-b-lg">
+                {{ movie.name }}
+            </div>
+            {% if movie.is_premium %}
+            <button class="absolute top-2 right-2 p-2 bg-white rounded-full text-yellow-500 transition duration-300 ease-in-out ">
+                <i class="fas fa-crown"></i>
+            </button>
+            {% endif %}
+        </div>
+    
+        {% empty %}
+        <li>No movies found.</li>
+        {% endfor %}
+</div>
+
+{% endblock %}
+
+</section>

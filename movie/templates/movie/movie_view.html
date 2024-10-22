@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="relative h-screen mt-24" style="background-image: url('{{ movie.image.url }}'); background-size: cover; background-position: center; position: relative;">  
+    <!-- Black Overlay -->
+    <div class="absolute inset-0 bg-black opacity-80"></div>
+
+    <!-- Content -->
+    <div class="container mx-auto flex flex-col md:flex-row p-7 md:p-0  relative z-10 space-x-4">
+        <div class="flex-1 relative md:my-20 lg:my-30 xl:my-40 p-1 border rounded">
+            <img src="{{movie.image.url}}" class="w-full">
+            {% if movie.title_logo%}
+            <img src="{{movie.title_logo.url}}" class=" absolute bottom-3 left-3 w-20 md:w-50">
+            {% endif %}
+        </div>
+        <div class="flex-1 my-5 md:my-20 lg:my-30 xl:my-40">
+            <h1 class="text-5xl font-semibold">{{movie.name}}                
+                {% if movie.is_premium and not is_subscribed %}
+                <button class="p-1 text-xl bg-white rounded text-yellow-500  ">
+                    <i class="fas fa-crown"></i>
+                </button>
+                {% endif %}</h1>
+            <div class="flex my-4 flex-wrap gap-2 md:gap-10 lg-gap-20 ">
+                {% for quality in movie.quality.all%}
+                <button class="bg-red-600 p-1 rounded text-white text-md">{{quality}}</button>
+                {% endfor %}
+                <ul class=" my-auto inline-flex text-white">
+                    {% for genre in movie.genre.all%}
+                        <li class="">{{ genre }}{% if not forloop.last %}, {% endif %}</li>
+                    {% endfor %}
+                </ul>
+                <span class="text-gray-300 my-auto"><i class="fas mx-2 text-red-600 fa-calendar-alt my-auto"></i>{{movie.year}}</span>
+                <span class="my-auto text-gray-300 "><i class="fas mx-2 text-red-600 fa-calendar-alt my-auto"></i>{{movie.formatted_duration}}</span>
+            </div>
+            <p class="text-base mt-14 text-gray-300">{{movie.description}}</p>
+            <div class="border border-gray-600 p-6 flex flex-col md:flex-row rounded-xl gap-4 justify-around mt-10">
+                <div class="my-auto">
+                <i class="fas p-3 rounded bg-gray-500 mx-2 fa-share"></i>
+                <a href="{% url 'add_to_wishlist' movie.id %}"><i class="fas p-3 rounded bg-gray-500 mx-2 fa-heart"></i></a>
+                {% if movie.is_premium and is_subscribed %}
+                <a href="{% url 'download-movie' movie.id %}"><i class="fas p-3 rounded bg-gray-500 mx-2 fa-download"></i></a>
+                {% endif %}
+                </div>
+                <ul class="text-lg my-auto inline-flex text-white"><span class="mx-2">Language:</span>
+                    {% for language in movie.language.all %}
+                        <li class="">{{ language }}{% if not forloop.last %}, {% endif %}</li>
+                    {% endfor %}
+                </ul>
+                {% if movie.is_premium and not is_subscribed %}
+                <a href="{% url 'subscription_plans' %}">
+                <button class="rounded-3xl p-3 border-2 bg-v border-red-600 my-auto">
+                    <i class="fas fa-crown mr-2"></i>
+                    Premium
+                </button>
+                </a>
+                {% else %}
+                <a href="{% url 'watch-movie' movie.id %}">
+                    <button class="rounded-3xl p-3 border-2 bg-v border-red-600 my-auto">
+                        <i class="fas fa-play-circle mr-2"></i>
+                        Watch Now
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="container mx-auto my-28 p-8 lg:p-0 ">
+    <h3 class="text-xl font-bold text-red-600 my-5 bg-white p-2 rounded w-fit">Cast</h3>
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2">
+        {% for cast in movie.cast.all %}
+            <!-- You can display cast details here -->
+            <div class="flex flex-col max-h-full relative group border-gray-500 border p-1 rounded duration-500 hover:scale-95">
+                <a href="{% url "cast" cast.id %}"> <img class="h-auto w-full flex-grow" src="{{ cast.image.url }}" alt="{{ cast.name }}"></a>
+                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-lg p-2 rounded-b-lg">
+                    {{ cast.name }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container mx-auto my-28 p-8 lg:p-0 ">
+    <h3 class="text-xl font-bold text-red-600 my-5 bg-white p-2 rounded w-fit">Director</h3>
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2">
+
+            <!-- You can display cast details here -->
+            <div class="flex flex-col max-h-full relative group border-gray-500 border p-1 rounded duration-500 hover:scale-95">
+                <a href="{% url "cast" movie.director.id %}"> <img class="h-auto w-full flex-grow" src="{{ movie.director.image.url }}" alt="{{ movie.director }}"></a>
+                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-lg p-2 rounded-b-lg">
+                    {{ movie.director }}
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock %}

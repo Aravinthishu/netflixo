@@ -1,0 +1,101 @@
+{% comment %} {% load static %}
+<div class="w-full flex justify-center items-center pt-10">
+    <!-- Carousel Wrapper -->
+    <div class="relative w-full container mx-auto overflow-hidden">
+        <!-- Cards Container -->
+        <div id="carousel" class="flex transition-transform duration-500 ease-out" style="width: max-content;">
+            <!-- Card 1 -->
+            <div class="w-1/5 p-2 flex-shrink-0">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/300" alt="Card Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Card 1</h3>
+                        <p class="text-gray-700">This is card 1 description.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="w-1/5 p-2 flex-shrink-0">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/300" alt="Card Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Card 2</h3>
+                        <p class="text-gray-700">This is card 2 description.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="w-1/5 p-2 flex-shrink-0">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/300" alt="Card Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Card 3</h3>
+                        <p class="text-gray-700">This is card 3 description.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="w-1/5 p-2 flex-shrink-0">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/300" alt="Card Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Card 4</h3>
+                        <p class="text-gray-700">This is card 4 description.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="w-1/5 p-2 flex-shrink-0">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/300" alt="Card Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Card 5</h3>
+                        <p class="text-gray-700">This is card 5 description.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Additional cards -->
+            <div class="w-1/5 p-2 flex-shrink-0">
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/300" alt="Card Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2">Card 6</h3>
+                        <p class="text-gray-700">This is card 6 description.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- More cards as needed -->
+        </div>
+
+        <!-- Carousel Controls -->
+        <button id="prev" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full hover:bg-gray-600">
+            Prev
+        </button>
+        <button id="next" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full hover:bg-gray-600">
+            Next
+        </button>
+    </div>
+</div>
+
+
+{% block javascript %}
+<script>
+    
+    const carousel = document.getElementById('carousel');
+    let scrollAmount = 0;
+
+    document.getElementById('next').onclick = function () {
+        const cardWidth = document.querySelector('.w-1/5').offsetWidth + 16; // card width + margin
+        const maxScroll = carousel.scrollWidth - carousel.offsetWidth;
+        scrollAmount = Math.min(scrollAmount + cardWidth, maxScroll);
+        carousel.style.transform = `translateX(-${scrollAmount}px)`;
+    };
+
+    document.getElementById('prev').onclick = function () {
+        const cardWidth = document.querySelector('.w-1/5').offsetWidth + 16; // card width + margin
+        scrollAmount = Math.max(scrollAmount - cardWidth, 0);
+        carousel.style.transform = `translateX(-${scrollAmount}px)`;
+    };
+</script>
+
+{% endblock %} {% endcomment %}
