@@ -111,12 +111,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 import os
@@ -196,3 +196,5 @@ EMAIL_HOST_USER =os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD =os.getenv('EMAIL_HOST_PASSWORD')
 EMIL_HOST_USER_NANE=os.getenv('EMIL_HOST_USER_NANE')
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
+
+
